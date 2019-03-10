@@ -1,0 +1,24 @@
+library(dplyr)
+library(lubridate)
+lakers
+la2<-lakers
+la2$date<-paste(as.character(la2$date),la2$time)
+la2$date<-ymd_hm(la2$date)
+str(la2)
+la2%>%filter(opponent=="POR",team=="LAL")%>%nrow()
+la2%>%filter(player=="Pau Gasol",opponent=="POR")%>%nrow()
+la2%>%filter(hour(date)==12,weekdays(date)=="Monday")%>%nrow()
+la2%>%filter(player=="Pau Gasol",opponent=="POR",weekdays(date)=="Sunday")%>%nrow()
+la2%>%filter(game_type=="home",opponent=="PHX",weekdays(date)=="Wednesday")%>%nrow()
+la2%>%group_by(Month=months(date))%>%summarize(Number=n())%>%filter(Month=="October"|Month=="December"|Month=="January"|Month=="April")
+datasets::cars
+View(cars)
+mtcar<-data("mtcars")
+View(mtcars)
+mtcars%>%group_by(gear)%>%summarize(mean(mpg))
+library(arules)
+adult<-data("AdultUCI")
+View(AdultUCI)
+AdultUCI%>%filter(`marital-status`=="Divorced",age==38)%>%nrow()
+AdultUCI%>%group_by(income)%>%filter(race=="White",`hours-per-week`<25,sex=="Female")%>%summarize(mean(age))
+
